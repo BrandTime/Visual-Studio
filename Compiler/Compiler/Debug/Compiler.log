@@ -1,0 +1,11 @@
+﻿  CGEN.C
+  CODE.C
+  MAIN.C
+  PARSE.C
+  SCAN.C
+  SYMTAB.C
+  UTIL.C
+  Generating Code...
+MAIN.obj : error LNK2019: unresolved external symbol _buildSymtab referenced in function _main
+MAIN.obj : error LNK2019: unresolved external symbol _typeCheck referenced in function _main
+D:\Git\Visual-Studio\Compiler\Debug\Compiler.exe : fatal error LNK1120: 2 unresolved externals

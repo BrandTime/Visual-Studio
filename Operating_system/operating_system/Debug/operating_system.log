@@ -1,0 +1,12 @@
+﻿  Memory.cpp
+d:\git\-data-structure-and-algorithim-analysis\operating_system\operating_system\memory.cpp(10): warning C4200: nonstandard extension used: zero-sized array in struct/union
+  d:\git\-data-structure-and-algorithim-analysis\operating_system\operating_system\memory.cpp(10): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
+d:\git\-data-structure-and-algorithim-analysis\operating_system\operating_system\memory.cpp(23): warning C4273: 'malloc': inconsistent dll linkage
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_malloc.h(97): note: see previous definition of 'malloc'
+d:\git\-data-structure-and-algorithim-analysis\operating_system\operating_system\memory.cpp(55): warning C4273: 'free': inconsistent dll linkage
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_malloc.h(85): note: see previous definition of 'free'
+d:\git\-data-structure-and-algorithim-analysis\operating_system\operating_system\memory.cpp(64): warning C4101: 'curn': unreferenced local variable
+d:\git\-data-structure-and-algorithim-analysis\operating_system\operating_system\memory.cpp(77): warning C4018: '<': signed/unsigned mismatch
+TimeSlice.obj : error LNK2005: _main already defined in Memory.obj
+     Creating library D:\Git\-data-structure-and-algorithim-analysis\operating_system\Debug\operating_system.lib and object D:\Git\-data-structure-and-algorithim-analysis\operating_system\Debug\operating_system.exp
+D:\Git\-data-structure-and-algorithim-analysis\operating_system\Debug\operating_system.exe : fatal error LNK1169: one or more multiply defined symbols found

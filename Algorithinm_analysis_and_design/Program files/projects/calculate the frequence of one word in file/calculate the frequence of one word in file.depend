@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1495178345 source:d:\codeblocks\files\calculate the frequence of one word in file\main.cpp
+	"class.h"
+
+1495180212 d:\codeblocks\files\calculate the frequence of one word in file\class.h
+	<iostream>
+	<string.h>
+

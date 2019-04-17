@@ -1,0 +1,20 @@
+# depslib dependency file v1.0
+1494338593 source:d:\codeblocks\files\maze problem\class.cpp
+	"class.h"
+
+1494339698 d:\codeblocks\files\maze problem\class.h
+	<iostream>
+	<stdlib.h>
+
+1494338593 source:d:\codeblocks\files\maze problem\main.cpp
+	"class.h"
+
+1494338466 d:\codeblocks\files\maze problem\class.cpp
+
+1495454517 source:d:\onedrive\program files\projects\maze problem\class.cpp
+	"class.h"
+
+1495454517 d:\onedrive\program files\projects\maze problem\class.h
+	<iostream>
+	<stdlib.h>
+

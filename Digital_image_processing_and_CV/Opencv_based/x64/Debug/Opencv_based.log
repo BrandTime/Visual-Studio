@@ -1,0 +1,18 @@
+﻿  WavletTransformation.h
+d:\git\visual-studio\digital_image_processing_and_cv\opencv_based\wavlettransformation.h(141): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+d:\git\visual-studio\digital_image_processing_and_cv\opencv_based\wavlettransformation.h(142): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+d:\git\visual-studio\digital_image_processing_and_cv\opencv_based\wavlettransformation.h(222): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\visual-studio\digital_image_processing_and_cv\opencv_based\wavlettransformation.h(223): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\visual-studio\digital_image_processing_and_cv\opencv_based\wavlettransformation.h(225): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\visual-studio\digital_image_processing_and_cv\opencv_based\wavlettransformation.h(226): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\visual-studio\digital_image_processing_and_cv\opencv_based\wavlettransformation.h(231): warning C4305: 'initializing': truncation from 'double' to 'float'
+d:\git\visual-studio\digital_image_processing_and_cv\opencv_based\wavlettransformation.h(232): warning C4305: 'initializing': truncation from 'double' to 'float'
+d:\git\visual-studio\digital_image_processing_and_cv\opencv_based\wavlettransformation.h(253): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\visual-studio\digital_image_processing_and_cv\opencv_based\wavlettransformation.h(254): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\visual-studio\digital_image_processing_and_cv\opencv_based\wavlettransformation.h(256): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\visual-studio\digital_image_processing_and_cv\opencv_based\wavlettransformation.h(257): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\git\visual-studio\digital_image_processing_and_cv\opencv_based\wavlettransformation.h(262): warning C4305: 'initializing': truncation from 'double' to 'float'
+d:\git\visual-studio\digital_image_processing_and_cv\opencv_based\wavlettransformation.h(263): warning C4305: 'initializing': truncation from 'double' to 'float'
+  mian.cpp
+  Generating Code...
+  Opencv_based.vcxproj -> D:\Git\Visual-Studio\Digital_image_processing_and_CV\x64\Debug\Opencv_based.exe

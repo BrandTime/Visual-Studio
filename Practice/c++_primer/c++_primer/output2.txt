@@ -1,0 +1,11 @@
+No	0
+a	1
+as	2
+by	3
+in	4
+is	5
+no	6
+of	7
+on	8
+or	9
+to	10

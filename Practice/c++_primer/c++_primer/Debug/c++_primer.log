@@ -1,0 +1,3 @@
+﻿  Source1.cpp
+d:\git\-data-structure-and-algorithim-analysis\c++_primer\c++_primer\source1.cpp(63): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  c++_primer.vcxproj -> D:\Git\-data-structure-and-algorithim-analysis\c++_primer\Debug\c++_primer.exe
