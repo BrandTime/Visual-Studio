@@ -21,12 +21,13 @@ bool Scanner::preProcess(ifstream& f) {
 		return false;
 	}
 	while (!f.bad()) {
-		getline(f, lineBuf);
+		string curLine;
+		getline(f, curLine);
 		bool occured = false;//是否出现过"/*"
-		int state = 0;
-		string::iterator temp = lineBuf.begin();
 		if (!occured) {
-			for (string::iterator i; i != lineBuf.end(); ++i) {
+			int state = 0;
+			auto temp = curLine.begin();
+			for (auto i= curLine.begin(); i != curLine.end(); ++i) {
 				if (!occured)
 					state = 0;
 				switch (state) {
@@ -46,16 +47,37 @@ bool Scanner::preProcess(ifstream& f) {
 						state = 0;
 					break;
 				case 2:
-					i = lineBuf.insert(i - 2, '@');
+					i = curLine.insert(i - 2, '@');
 					i += 2;
 					break;
 				default:
-					cerr << "compiler error" << endl;
+					lineBuf = curLine;
 				}
 			}
 		}
 		else {
-			for(string::iterator i;)
+			int state = 0;
+			string reverseCurLine = curLine;
+			reverse(curLine.begin(), curLine.end());
+			auto temp = reverseCurLine.rbegin();
+			for (auto i = reverseCurLine.begin(); i != reverseCurLine.end(); ++i) {
+				switch (state) {
+				case 0:
+					if (*i == '/')
+						state = 1;
+					break;
+				case 1:
+					if (*i == '*')
+						state = 2;
+					break;
+				case 2:
+					i=reverseCurLine.insert(i-2, '@');
+					i += 3;
+					break;
+				default:
+					cerr << "error" << endl;
+				}
+			}
 		}
 
 		codeBuf.push_back(lineBuf);

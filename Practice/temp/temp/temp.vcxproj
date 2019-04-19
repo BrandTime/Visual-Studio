@@ -116,7 +116,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Loan.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="WaveTransform.cpp" />
   </ItemGroup>
