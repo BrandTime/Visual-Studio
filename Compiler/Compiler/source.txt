@@ -1,3 +1,15 @@
-int i=0;
-if(i<2)
-then printf  
+/* Sample program
+* in TINY language -
+  *computes factorial
+*/
+read x_3f5; /* input an integer */
+if 0.1415 < x_3f5  then //don't compute if x_3f5 <= 0 }**/
+  _f3act := 12;
+    //fafaj :="temp";
+   // dafdfad:='t';
+  repeat
+    _f3act := _f3act * x_3f5;
+    x_3f5 := x_3f5 + 1
+  until x_3f5 = 93;
+  write _f3act /*{ output factorial of x_3f5 }**/
+end

@@ -1,4 +1,4 @@
-/****************************************************/
+ï»¿/****************************************************/
 /* File: scan.c                                     */
 /* The scanner implementation for the TINY compiler */
 /* Compiler Construction: Principles and Practice   */
@@ -10,93 +10,49 @@
 #include "scan.h"
 
 int Scanner::linepos = 0;
-int Scanner::bufsize = 0;
 bool Scanner::EOF_flag = false;
+string Scanner::tokenString="";
+string Scanner::lineBuf="";
+vector<pair<string,size_t>> Scanner::codeBuf;
+size_t Scanner::lineno = 0;
+list<Token> Scanner::tokenBuf;
 
-bool Scanner::preProcess(ifstream& f) {
-	bufsize = linepos = 0;
+bool Scanner::preProcess(fstream& f) {
+	lineno = 0;
 	EOF_flag = false;
-	if (!f) {
-		cerr << "file open fail" << endl;
-		return false;
-	}
-	while (!f.bad()) {
-		string curLine;
-		getline(f, curLine);
-		bool occured = false;//ÊÇ·ñ³öÏÖ¹ý"/*"
-		if (!occured) {
-			int state = 0;
-			auto temp = curLine.begin();
-			for (auto i= curLine.begin(); i != curLine.end(); ++i) {
-				if (!occured)
-					state = 0;
-				switch (state) {
-				case 0:
-					if (*i == '/') {
-						state = 1;
-						temp = i;
-					}
-					break;
-				case 1:
-					if (*i == '/')
-						state = 2;
-					else if (*i == '*') {
-						occured = true;
-					}
-					else
-						state = 0;
-					break;
-				case 2:
-					i = curLine.insert(i - 2, '@');
-					i += 2;
-					break;
-				default:
-					lineBuf = curLine;
-				}
-			}
-		}
-		else {
-			int state = 0;
-			string reverseCurLine = curLine;
-			reverse(curLine.begin(), curLine.end());
-			auto temp = reverseCurLine.rbegin();
-			for (auto i = reverseCurLine.begin(); i != reverseCurLine.end(); ++i) {
-				switch (state) {
-				case 0:
-					if (*i == '/')
-						state = 1;
-					break;
-				case 1:
-					if (*i == '*')
-						state = 2;
-					break;
-				case 2:
-					i=reverseCurLine.insert(i-2, '@');
-					i += 3;
-					break;
-				default:
-					cerr << "error" << endl;
-				}
-			}
-		}
 
-		codeBuf.push_back(lineBuf);
+	while (getline(f, lineBuf)) {
+		lineBuf.push_back('\n');
+		codeBuf.push_back(make_pair(lineBuf, lineno));
+		if (EchoSource)
+			listing <<"line"<< setw(4)<<lineno<< ": " << lineBuf;
+		lineBuf.clear();
+		++lineno;
 	}
-	lineBuf.clear();
+	if (EchoSource)
+		listing << endl;
 	return true;
 }
 char Scanner::getNextChar(){ 
-	
+	if (!(linepos < lineBuf.size())){
+		++lineno;
+		if (lineno !=codeBuf.size()){
+			lineBuf =codeBuf.at(lineno).first;
+			linepos = 0;
+			return lineBuf.at(linepos++);
+		}
+		else{
+			EOF_flag = true;
+			return EOF;
+		}
+	}
+	else 
+		return lineBuf.at(linepos++);
 }
-
-
 void  Scanner::ungetNextChar() {
 	if (!EOF_flag) 
 		linepos-- ;
 }
-
-
-
 TokenType Scanner::reservedLookup (const string& s){ 
 	int i;
 	for (i=0;i<MAXRESERVED;i++)
@@ -112,16 +68,14 @@ TokenType Scanner::reservedLookup (const string& s){
  * next token in source file
  */
 TokenType Scanner::getToken(){  
-	/* index for storing into tokenString */
-	int tokenStringIndex = 0;
     /* holds current token to be returned */
-    TokenType currentToken;
+    TokenType currentToken=_NULL;
 	/* current state - always begins at START */
 	StateType state = START;
 	/* flag to indicate save to tokenString */
-	int save;
+	bool save;
 	while (state != DONE){ 
-	    int c = getNextChar();
+	    char c = getNextChar();
 		save = true;
 		switch (state) { 
 			case START:
@@ -129,14 +83,20 @@ TokenType Scanner::getToken(){
 					state = INNUM;
 				else if (isalpha(c))
 					state = INID;
+				else if (c == '_')
+					state = INID;
 				else if (c == ':')
 					state = INASSIGN;
-				else if ((c == ' ') || (c == '\t') || (c == '\n'))
-					save = false;
-				else if (c == '{'){
+				else if ((c == ' ') || (c == '\t')||(c=='\n'))
+					save = false;	
+				else if (c == '/') {
 					save = false;
 					state = INCOMMENT;
 				}
+				else if (c == '\'')
+					state = INCHAR;
+				else if (c == '\"')
+					state = INSTRING;
 				else { 
 					state = DONE;
 					switch (c){
@@ -177,14 +137,55 @@ TokenType Scanner::getToken(){
 					}
 				}
 				break;
+			case INSTRING:
+				save = true;
+				if (c=='\"') {
+					currentToken = STRING;
+					state = DONE;
+				}
+				break;
+			case INCHAR:
+				save = true;
+				if (getNextChar() == '\'') {
+					ungetNextChar();
+					state = INCHAR;
+				}
+				else if (getNextChar() != '\''&&c == '\'') {
+					ungetNextChar();
+					currentToken = CHAR;
+					state = DONE;
+				}
+				else
+					state = _ERROR;
+				break;
 			case INCOMMENT:
 				save = false;
-				if (c == EOF){ 
+				if (c == '/')
+					state = SCOMMENT;//maybe singleline comment
+				else if (c == '*')
+					state = MCOMMENT;//maybe multiline comment
+				break;
+			case SCOMMENT:
+				save = false;
+				if (c == EOF) {
 					state = DONE;
 					currentToken = ENDFILE;
 				}
-				else if (c == '}') 
-					state = START;
+				else if (c == '\n') {
+					state = DONE;
+				}
+				break;
+			case MCOMMENT:
+				save = false;
+				if (c == '*') {
+					c = getNextChar();
+					if (c == '/') {
+						state = DONE;
+					}
+					else {
+						ungetNextChar();
+					}
+				}
 				break;
 			case INASSIGN:
 				state = DONE;
@@ -199,42 +200,68 @@ TokenType Scanner::getToken(){
 				break;
 			case INNUM:
 				if (!isdigit(c)){ 
-					/* backup in the input */
-					ungetNextChar();
-					save = false;
-					state = DONE;
-					currentToken = NUM;
+					if (c!='.') {
+						/* backup in the input */
+						ungetNextChar();
+						save = false;
+						state = DONE;
+						currentToken = NUM;
+					}
 				}
 				break;
 			case INID:
 				if (!isalpha(c)){ 
-					/* backup in the input */
-					ungetNextChar();
-					save = false;
-					state = DONE;
-					currentToken = ID;
+					if (!isdigit(c) && c != '_') {
+						/* backup in the input */
+						ungetNextChar();
+						save = false;
+						state = DONE;
+						currentToken = ID;
+					}
 				}
 				break;
 			case DONE:
+				break;
+			case _ERROR:
 			default: 
 				/* should never happen */
-				fprintf(listing,"Scanner Bug: state= %d\n",state);
+				cerr << "Scanner Bug: state= " << state << endl;
 				state = DONE;
 				currentToken = ERROR;
 				break;
 		}
-		if ((save) && (tokenStringIndex <= MAXTOKENLEN))
-			tokenString[tokenStringIndex++] = (char) c;
-		if (state == DONE){ 
-			tokenString[tokenStringIndex] = '\0';
+		if (save) 
+			tokenString.push_back(c);
+		if (state == DONE) {
 			if (currentToken == ID)
 				currentToken = reservedLookup(tokenString);
 		}
 	}
-	if (TraceScan) {
-		fprintf(listing,"\t%d: ",lineno);
-		printToken(currentToken,tokenString);
-	}
 	return currentToken;
 } /* end getToken */
-
+//main function, get token and tokestring
+void Scanner::scan(fstream& f) {
+	//codeBuf.reserve(100);
+	preProcess(f);
+	linepos = 0;
+	lineno = 0;
+	TokenType token=ENDFILE;
+	lineBuf = codeBuf.front().first;
+	while ((token=getToken()) != ENDFILE) {
+		if (token != _NULL) {
+			tokenBuf.push_back(Token(tokenString, token, lineno));
+			if (TraceScan) {
+				listing << "line" << setw(4) << lineno <<":"<< ends;
+				printToken(Token(tokenString, token, lineno), listing);
+			}
+		}
+		tokenString.clear();
+	}
+	if (TraceScan)
+		listing << endl;
+}
+void Scanner::print(ostream& o) {
+	for (const auto &i : tokenBuf) {
+		printToken(i,o);
+	}
+}

@@ -112,14 +112,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="resource.cpp" />
-    <ClCompile Include="Source1.cpp" />
+    <ClCompile Include="StrBlob.cpp" />
+    <ClCompile Include="Source.cpp" />
     <ClCompile Include="TestQuery.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="first.h" />
+    <ClInclude Include="StrBlob.h" />
     <ClInclude Include="Header.h" />
-    <ClInclude Include="second.h" />
+    <ClInclude Include="Sales_data.h" />
     <ClInclude Include="TestQuery.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -14,27 +14,27 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source1.cpp">
+    <ClCompile Include="TestQuery.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="resource.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="StrBlob.cpp">
+      <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="TestQuery.cpp">
+    <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="first.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="second.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TestQuery.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Header.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StrBlob.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sales_data.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

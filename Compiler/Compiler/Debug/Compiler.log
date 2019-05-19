@@ -1,11 +1,11 @@
-﻿  CGEN.C
-  CODE.C
-  MAIN.C
-  PARSE.C
-  SCAN.C
-  SYMTAB.C
-  UTIL.C
+﻿  CGEN.cpp
+  CODE.cpp
+  MAIN.cpp
+d:\git\visual-studio\compiler\compiler\main.cpp(49): warning C4101: 'syntaxTree': unreferenced local variable
+  PARSE.cpp
+  SCAN.cpp
+d:\git\visual-studio\compiler\compiler\scan.cpp(36): warning C4018: '<': signed/unsigned mismatch
+  SYMTAB.cpp
+  UTIL.cpp
   Generating Code...
-MAIN.obj : error LNK2019: unresolved external symbol _buildSymtab referenced in function _main
-MAIN.obj : error LNK2019: unresolved external symbol _typeCheck referenced in function _main
-D:\Git\Visual-Studio\Compiler\Debug\Compiler.exe : fatal error LNK1120: 2 unresolved externals
+  Compiler.vcxproj -> D:\Git\Visual-Studio\Compiler\Debug\Compiler.exe

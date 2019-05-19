@@ -1,9 +1,6 @@
-﻿  MAIN.cpp
-d:\git\visual-studio\compiler\compiler\main.cpp(48): warning C4101: 'syntaxTree': unreferenced local variable
-  SCAN.cpp
-d:\git\visual-studio\compiler\compiler\scan.cpp(18): error C2664: 'char *fgets(char *,int,FILE *)': cannot convert argument 1 from 'std::string' to 'char *'
-  d:\git\visual-studio\compiler\compiler\scan.cpp(18): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-d:\git\visual-studio\compiler\compiler\scan.cpp(20): warning C4477: 'fprintf' : format string '%s' requires an argument of type 'char *', but variadic argument 2 has type 'std::string'
-d:\git\visual-studio\compiler\compiler\scan.cpp(21): error C2664: 'size_t strlen(const char *)': cannot convert argument 1 from 'std::string' to 'const char *'
-  d:\git\visual-studio\compiler\compiler\scan.cpp(21): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-  Generating Code...
+﻿  PARSE.cpp
+d:\git\visual-studio\compiler\compiler\util.h(57): warning C4099: 'std::shared_ptr<TreeNode>': type name first seen using 'class' now seen using 'struct'
+  d:\git\visual-studio\compiler\compiler\util.h(57): note: see declaration of 'std::shared_ptr<TreeNode>'
+d:\git\visual-studio\compiler\compiler\util.h(58): warning C4099: 'std::shared_ptr<TreeNode>': type name first seen using 'class' now seen using 'struct'
+  d:\git\visual-studio\compiler\compiler\util.h(57): note: see declaration of 'std::shared_ptr<TreeNode>'
+  Compiler.vcxproj -> D:\Git\Visual-Studio\Compiler\x64\Debug\Compiler.exe

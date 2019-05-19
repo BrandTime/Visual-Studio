@@ -5,6 +5,7 @@
 #include<fstream>
 #include<sstream>
 #include<array>
+#include<memory_resource>
 #include<list>
 #include<deque>
 #include<forward_list>

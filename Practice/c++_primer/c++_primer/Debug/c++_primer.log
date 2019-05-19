@@ -1,3 +1,6 @@
-﻿  Source1.cpp
-d:\git\-data-structure-and-algorithim-analysis\c++_primer\c++_primer\source1.cpp(63): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  c++_primer.vcxproj -> D:\Git\-data-structure-and-algorithim-analysis\c++_primer\Debug\c++_primer.exe
+﻿  Source.cpp
+  The contents of <memory_resource> are only available with C++17 or later.
+  TestQuery.cpp
+  The contents of <memory_resource> are only available with C++17 or later.
+  Generating Code...
+  c++_primer.vcxproj -> D:\Git\Visual-Studio\Practice\Debug\c++_primer.exe

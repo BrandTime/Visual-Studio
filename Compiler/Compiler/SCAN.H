@@ -8,32 +8,7 @@
 #ifndef _SCAN_H_
 #define _SCAN_H_
 #include"GLOBALS.H"
-/* MAXTOKENLEN is the maximum size of a token */
-#define MAXTOKENLEN 40
-
-/* lookup table of reserved words */
-static struct{
-	string str;
-	TokenType tok;
-} reservedWords[MAXRESERVED]
-= { 
-	{"if",IF},{"then",THEN},{"else",ELSE},{"end",END},
-	{"repeat",REPEAT},{"until",UNTIL},{"read",READ},
-	{"write",WRITE} 
-};
-
-/* states in scanner DFA */
-typedef enum{
-	START, INASSIGN, INCOMMENT, INNUM, INID, DONE
-}
-StateType;
-
-/* lexeme of identifier or reserved word */
-//string tokenString;
-
-/* BUFLEN = length of the input buffer for
-   source code lines */
-#define BUFLEN 256
+#include"UTIL.H"
 
 class Scanner {
 private:
@@ -41,27 +16,30 @@ private:
 	static string tokenString;
 	static string lineBuf; /* holds the current line */
 	static int linepos; /* current position in LineBuf */
-	static int bufsize; /* current size of buffer string */
+	static size_t lineno;//current line number
 	static bool EOF_flag; /* corrects ungetNextChar behavior on EOF */
-	static vector<string> codeBuf;//holds entire source file
-	static vector<string> output;
-public:
+
+	/* getNextChar fetches the next non-blank character
+	from lineBuf, reading in a new line if lineBuf is
+	exhausted */
+	static char getNextChar();
+	/* lookup an identifier to see if it is a reserved word */
+	/* uses linear search */
+	static TokenType reservedLookup(const string& s);
 	/* function getToken returns the
 	* next token in source file
 	*/
 	static TokenType getToken();
-	/* getNextChar fetches the next non-blank character
-    from lineBuf, reading in a new line if lineBuf is
-    exhausted */
-	static char getNextChar();
 	/* ungetNextChar backtracks one character
-    in lineBuf */
+	in lineBuf */
 	static void ungetNextChar();
-	/* lookup an identifier to see if it is a reserved word */
-	/* uses linear search */
-	static TokenType reservedLookup(const string& s);
-	static bool preProcess(ifstream& i);
+	static bool preProcess(fstream& i);
+protected://can be used for further compile
+	static vector<pair<string,size_t>> codeBuf;//holds entire source file
+	static list<Token> tokenBuf;
+public:
+	static void scan(fstream& i);
+	static void print(ostream& o);
 };
-
 
 #endif
