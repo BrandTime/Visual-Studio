@@ -1,6 +1,0 @@
-﻿  PARSE.cpp
-d:\git\visual-studio\compiler\compiler\util.h(57): warning C4099: 'std::shared_ptr<TreeNode>': type name first seen using 'class' now seen using 'struct'
-  d:\git\visual-studio\compiler\compiler\util.h(57): note: see declaration of 'std::shared_ptr<TreeNode>'
-d:\git\visual-studio\compiler\compiler\util.h(58): warning C4099: 'std::shared_ptr<TreeNode>': type name first seen using 'class' now seen using 'struct'
-  d:\git\visual-studio\compiler\compiler\util.h(57): note: see declaration of 'std::shared_ptr<TreeNode>'
-  Compiler.vcxproj -> D:\Git\Visual-Studio\Compiler\x64\Debug\Compiler.exe
