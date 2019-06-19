@@ -21,6 +21,9 @@
     <ClCompile Include="WaveTransform.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
+    <ClCompile Include="FunctionTemplate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WaveTransform.h">

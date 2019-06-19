@@ -6,54 +6,52 @@ class HasPtr {
 	//pointerlike class
 private:
 	string *ps;
-	int i;
 	size_t *use;
 public:
-	HasPtr(const string&);
+	HasPtr() = delete;
+	explicit HasPtr(const string&);
 	HasPtr(const HasPtr&);
-	HasPtr& operator=(const HasPtr& );
+	HasPtr(HasPtr&&)noexcept;
+	HasPtr& operator=(HasPtr );
 	~HasPtr();
 	string getStr()const;
 	size_t getUse()const;
 	inline friend void swap(HasPtr&, HasPtr&);
 	inline bool operator<(const HasPtr&);
 };
+
+
+
+
+
+
+
+
+
 void swap(HasPtr& a, HasPtr& b) {
 	cout << "Execute swap!" << endl;
-	swap(a.i, b.i);
 	swap(a.ps, b.ps);
 	swap(a.use, b.use);
 }
 bool HasPtr::operator<(const HasPtr& a) {
-	
+	return *ps < *(a.ps);
 }
-
-
-
-
-
-
-
-
-
-
 HasPtr::HasPtr(const string& s = string()) :
-	ps(new string(s)), i(0), use(new size_t(1)) {}
+	ps(new string(s)), use(new size_t(1)) {}
 HasPtr::HasPtr(const HasPtr& p) :
-	ps(new string(*(p.ps))), i(p.i), use(new size_t(*(p.use))) {
+	ps(new string(*(p.ps))),use(new size_t(*(p.use))) {
 	++*use;
 }
-HasPtr& HasPtr::operator=(const HasPtr& p) {
-	if (&p != this) {
-		if (--*use == 0) {
-			delete use;
-			delete ps;
-		}
-		this->ps = new string(*(p.ps));
-		this->i = p.i;
-		this->use = new size_t(*(p.use));
-		++*use;
-	}
+HasPtr::HasPtr(HasPtr&& copy)noexcept {
+	delete use;
+	delete ps;
+	use = copy.use;
+	ps = copy.ps;
+	copy.use = nullptr;
+	copy.ps = nullptr;
+}
+HasPtr& HasPtr::operator=(HasPtr p) {
+	swap(*this, p);
 	return *this;
 }
 HasPtr::~HasPtr() {

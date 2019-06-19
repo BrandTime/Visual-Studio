@@ -21,35 +21,34 @@
 using namespace std;
 
 
-/* MAXRESERVED = the number of reserved words */
-#define MAXRESERVED 8
+/* MAXRESERVED = the MAX number of reserved words */
+#define MAXRESERVED 11
 
 typedef enum 
     /* book-keeping tokens */
-   {ENDFILE, ERROR , _NULL,
+   {
+	ENDFILE, ERROR , _NULL,
     /* reserved words */
-    IF,THEN,ELSE,END,REPEAT,UNTIL,READ,WRITE,
+    IF,ELSE,WHILE,INT,VOID,DOUBLE,RETURN,
     /* multicharacter tokens */
     ID,NUM,CHAR,STRING,
     /* special symbols */
-    ASSIGN,EQ,LT,PLUS,MINUS,TIMES,OVER,LPAREN,RPAREN,SEMI
+	PLUS,MINUS,TIMES,OVER,
+	LPAREN,RPAREN,SEMI,LBRACKET,RBRACKET,LBRACE,RBRACE,COMMA,
+	GT,GEQ,NEQ,EQ,LT,LEQ,ASSIGN
    } TokenType;
-/* states in scanner DFA */
-typedef enum {
-	START, INASSIGN, INCOMMENT, INNUM, INID, DONE, SCOMMENT,
-	MCOMMENT,INCHAR,INSTRING,_ERROR
-}
-StateType;
+
 /* lookup table of reserved words */
 static struct {
 	string str;
 	TokenType tok;
 } reservedWords[MAXRESERVED]
 = {
-	{"if",IF},{"then",THEN},{"else",ELSE},{"end",END},
-	{"repeat",REPEAT},{"until",UNTIL},{"read",READ},
-	{"write",WRITE}
+	{"if",IF},{"else",ELSE},{"while",WHILE},
+	{"int",INT},{"double",DOUBLE},{"return",RETURN},
+	{"void",VOID}
 };
+
 extern fstream source; /* source code text file */
 extern fstream code; /* code text file for TM simulator */
 extern ostream &listing;//print running information
@@ -58,8 +57,8 @@ extern ostream &listing;//print running information
 /***********   Syntax tree for parsing ************/
 /**************************************************/
 
-typedef enum {StmtK,ExpK} NodeKind;
-typedef enum {IfK,RepeatK,AssignK,ReadK,WriteK} StmtKind;
+typedef enum { VarK, StmtK, ExpK, FuncK, ParamK } NodeKind;
+typedef enum {IfK,WhileK,ReadK,WriteK,ReturnK,CallK} StmtKind;
 typedef enum {OpK,ConstK,IdK} ExpKind;
 
 /* ExpType is used for type checking */

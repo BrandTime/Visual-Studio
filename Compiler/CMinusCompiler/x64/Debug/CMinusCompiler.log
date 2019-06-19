@@ -3,4 +3,20 @@ d:\git\visual-studio\compiler\cminuscompiler\util.h(57): warning C4099: 'std::sh
   d:\git\visual-studio\compiler\cminuscompiler\util.h(57): note: see declaration of 'std::shared_ptr<TreeNode>'
 d:\git\visual-studio\compiler\cminuscompiler\util.h(58): warning C4099: 'std::shared_ptr<TreeNode>': type name first seen using 'class' now seen using 'struct'
   d:\git\visual-studio\compiler\cminuscompiler\util.h(57): note: see declaration of 'std::shared_ptr<TreeNode>'
-  CMinusCompiler.vcxproj -> D:\Git\Visual-Studio\Compiler\x64\Debug\CMinusCompiler.exe
+  CMinusScanner.cpp
+d:\git\visual-studio\compiler\cminuscompiler\util.h(57): warning C4099: 'std::shared_ptr<TreeNode>': type name first seen using 'class' now seen using 'struct'
+  d:\git\visual-studio\compiler\cminuscompiler\util.h(57): note: see declaration of 'std::shared_ptr<TreeNode>'
+d:\git\visual-studio\compiler\cminuscompiler\util.h(58): warning C4099: 'std::shared_ptr<TreeNode>': type name first seen using 'class' now seen using 'struct'
+  d:\git\visual-studio\compiler\cminuscompiler\util.h(57): note: see declaration of 'std::shared_ptr<TreeNode>'
+  CODE.cpp
+  SYMTAB.cpp
+  UTIL.cpp
+d:\git\visual-studio\compiler\cminuscompiler\util.h(57): warning C4099: 'std::shared_ptr<TreeNode>': type name first seen using 'class' now seen using 'struct'
+  d:\git\visual-studio\compiler\cminuscompiler\util.h(57): note: see declaration of 'std::shared_ptr<TreeNode>'
+d:\git\visual-studio\compiler\cminuscompiler\util.h(58): warning C4099: 'std::shared_ptr<TreeNode>': type name first seen using 'class' now seen using 'struct'
+  d:\git\visual-studio\compiler\cminuscompiler\util.h(57): note: see declaration of 'std::shared_ptr<TreeNode>'
+  Generating Code...
+CMinusScanner.obj : error LNK2001: unresolved external symbol "class std::basic_ostream<char,struct std::char_traits<char> > & listing" (?listing@@3AEAV?$basic_ostream@DU?$char_traits@D@std@@@std@@EA)
+CMinusScanner.obj : error LNK2001: unresolved external symbol "bool EchoSource" (?EchoSource@@3_NA)
+CMinusScanner.obj : error LNK2001: unresolved external symbol "bool TraceScan" (?TraceScan@@3_NA)
+D:\Git\Visual-Studio\Compiler\x64\Debug\CMinusCompiler.exe : fatal error LNK1120: 3 unresolved externals

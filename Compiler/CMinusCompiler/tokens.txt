@@ -1,32 +1,67 @@
-reserved word: read
-ID, name= x_3f5
+reserved word: int
+ID, name= x3f5
+=
+NUM, val= 1
 ;
+reserved word: int
+ID, name= circle
+(
+reserved word: int
+ID, name= x_3f5
+,
+reserved word: int
+ID, name= _f3act
+)
+{
 reserved word: if
-NUM, val= 0.1415
+(
+ID, name= _f3act
 <
+NUM, val= 50
+)
+{
+reserved word: while
+(
+ID, name= _f3act
+<=
+NUM, val= 3
+)
+{
 ID, name= x_3f5
-reserved word: then
-ID, name= _f3act
-;=
-NUM, val= 12
-;
-reserved word: repeat
-ID, name= _f3act
-;=
+=
 ID, name= _f3act
 *
 ID, name= x_3f5
 ;
-ID, name= x_3f5
-;=
-ID, name= x_3f5
+ID, name= _f3act
+=
+ID, name= _f3act
 +
 NUM, val= 1
-reserved word: until
-ID, name= x_3f5
-=
-NUM, val= 93
 ;
-reserved word: write
-ID, name= _f3act
-reserved word: end
+}
+}
+reserved word: return
+ID, name= x_3f5
+;
+}
+reserved word: void
+ID, name= main
+(
+)
+{
+reserved word: int
+ID, name= temp
+;
+ID, name= temp
+=
+ID, name= circle
+(
+ID, name= x3f5
+,
+NUM, val= 1
+)
+;
+reserved word: return
+;
+}

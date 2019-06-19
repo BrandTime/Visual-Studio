@@ -1,13 +1,13 @@
 ﻿#ifndef  _TESTQUERY_H_
 #define  _TESTQUERY_H_
 #include"Header.h"
-#include"StrBlob.hpp"
-
-using line_no = vector<string>::size_type;
+#include"StrVec.hpp"
+//#include"StrVec.hpp"
+using line_no =size_t;
 class TextQuery {
 private:
-	shared_ptr<StrBlob> file;
-	map<string, shared_ptr<set<line_no>>> wm;
+	shared_ptr<StrVec> file;
+	map<string, shared_ptr<pair<size_t,set<line_no>>>> wm;
 	class QueryResult;
 public:
 	TextQuery() = delete;
@@ -17,17 +17,18 @@ public:
 };
 
 class TextQuery::QueryResult {
-	shared_ptr<set<line_no>> line;
-	shared_ptr<StrBlob> lines;
+	size_t count;
+	set<line_no> line;
+	shared_ptr<StrVec> lines;
 	string sought;
 public:
 	ostream& print(ostream&)const;
-	QueryResult(const string& sough,shared_ptr<set<line_no>> lin,
-		shared_ptr<StrBlob> lie) :
-		sought(sough),line(lin),lines(lie) {};
+	QueryResult(const string& sough, size_t coun,set<line_no> lin,
+		shared_ptr<StrVec> lie) :
+		sought(sough),count(coun),line(lin),lines(lie) {};
 	set<line_no>::iterator begin();
 	set<line_no>::iterator end();
-	shared_ptr<StrBlob> get_file();
+	shared_ptr<StrVec> get_file();
 };
 
 void runQuery(istream&);
@@ -49,30 +50,42 @@ void runQuery(istream&);
 
 
 
-shared_ptr<StrBlob> TextQuery::QueryResult::get_file() {
+shared_ptr<StrVec> TextQuery::QueryResult::get_file() {
 	return lines;
 }
 set<line_no>::iterator TextQuery::QueryResult::end() {
-	return line->end();
+	return line.end();
 }
 set<line_no>::iterator TextQuery::QueryResult::begin() {
-	return line->begin();
+	return line.begin();
 }
-TextQuery::TextQuery(istream& in) :file(new StrBlob) {
+TextQuery::TextQuery(istream& in) :file(new StrVec) {
 	string text;
 	while (getline(in, text)) {
 		file->push_back(text);
-		int n = file->size() - 1;
-		istringstream line(text);
+		int n = file->getSize()-1;
+		istringstream lin(text);
 		string word;
-		while (line >> word) {
-			for (auto& i : word)
-				toupper(i);
+		while (lin >> word) {
+			for (auto i = word.begin(); i != word.end(); ) {
+				if (isalpha(*i)) {
+					*i = toupper(*i);
+				}
+				else if (!isdigit(*i)) {
+					i = word.erase(i);
+					continue;
+				}
+				++i;
+			}
 			auto &lines = wm[word];
 			if (!lines) {
-				lines.reset(new set<line_no>);
+				lines = make_shared<pair<size_t,set<line_no>>>();
+				lines->first = 1;
 			}
-			lines->insert(n);
+			else {
+				lines->first++;
+			}
+			lines->second.insert(n);
 		}
 	}
 }
@@ -81,20 +94,21 @@ TextQuery::~TextQuery() {
 	wm.clear();
 }
 TextQuery::QueryResult TextQuery::query(const string& str)const {
-	static shared_ptr<set<line_no>> nodata(new set<line_no>);
+	static set<line_no> nodata;
 	string word = str;
 	for (auto& i : word)
-		toupper(i);
-	auto loc = wm.find(word);
+		i=toupper(i);
+	const auto& loc = wm.find(word);
 	if (loc == wm.end())
-		return QueryResult(word, nodata, file);
+		return QueryResult(word, loc->second->first, nodata, file);
 	else
-		return QueryResult(word, loc->second, file);
+		return QueryResult(word, loc->second->first, 
+			loc->second->second, file);
 }
 ostream& TextQuery::QueryResult::print(ostream& out)const {
-	out << "Word " << sought << " occured " << line->size() << " times:" << endl;
-	for (auto &i : *line) {
-		out << "line: " << i + 1 << ends << lines->at(i) << endl;
+	out << "Word " << sought << " occured " << count << " times:" << endl;
+	for (auto i : line) {
+		out << "line: " << i+1 << ends << lines->at(i) << endl;
 	}
 	return out;
 }
@@ -118,10 +132,16 @@ void runQuery(istream& infile) {
 
 int main() {
 	fstream in("output1.txt", ios::in);
-	if (!in) {
+	fstream out("output2.txt", ios::out);
+	if (!in || !out) {
 		cerr << "file open fail" << endl;
 	}
-	runQuery(in);
+	try {
+		runQuery(in);
+	}
+	catch (exception& e) {
+		cerr << e.what() << endl;
+	}
 	in.close();
 
 	system("pause");

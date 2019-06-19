@@ -120,7 +120,7 @@
     <ClInclude Include="MessageAndFolder.hpp" />
     <ClInclude Include="Sales_data.hpp" />
     <ClInclude Include="StrBlob.hpp" />
-    <ClInclude Include="StrVec.h" />
+    <ClInclude Include="StrVec.hpp" />
     <ClInclude Include="TestQuery.hpp" />
   </ItemGroup>
   <ItemGroup>

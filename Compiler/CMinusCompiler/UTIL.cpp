@@ -21,22 +21,30 @@ void printFile(fstream& io) {
  * and its lexeme to the listing file
  */
 void printToken(const Token& toke ,ostream& out){ 
-	switch (toke.token){
+	switch (toke.token) {
+	case INT:
+	case DOUBLE:
+	case VOID:
 	case IF:
-    case THEN:
-    case ELSE:
-    case END:
-    case REPEAT:
-    case UNTIL:
-    case READ:
-    case WRITE:
+	case ELSE:
+	case WHILE:
+	case RETURN:
 		out << "reserved word: " << toke.tokenString << endl;
-      break;
-	case ASSIGN: out << ";=" << endl;  break;
+		break;
+	case ASSIGN: out << "=" << endl;  break;
+	case GT: out << ">" << endl; break;
+	case GEQ:out << ">=" << endl; break;
 	case LT: out << "<" << endl; break;
-	case EQ: out << "=" << endl; break;
+	case LEQ:out << "<=" << endl; break;
+	case NEQ:out << "!=" << endl; break;
+	case EQ: out << "==" << endl; break;
 	case LPAREN: out << "(" << endl; break;
 	case RPAREN: out << ")" << endl; break;
+	case LBRACKET:out << "[" << endl; break;
+	case RBRACKET:out << "]" << endl; break;
+	case LBRACE:out << "{" << endl; break;
+	case RBRACE:out << "}" << endl; break;
+	case COMMA:out << "," << endl; break;
 	case SEMI: out << ";" << endl; break;
 	case PLUS: out << "+" << endl; break;
     case MINUS: out << "-" << endl; break;
@@ -84,7 +92,7 @@ shared_ptr<TreeNode> newStmtNode(StmtKind kind){
 /* Function newExpNode creates a new expression 
  * node for syntax tree construction
  */
-shared_ptr<TreeNode> newExpNode(ExpKind kind){
+shared_ptr<TreeNode> newTreeNode(NodeKind kind,Token token){
 	shared_ptr<TreeNode> t =make_shared<TreeNode>();
 	int i;
 	if (t==nullptr)
@@ -93,13 +101,27 @@ shared_ptr<TreeNode> newExpNode(ExpKind kind){
 		for (i=0;i<MAXCHILDREN;i++) 
 			t->child[i] = nullptr;
 		t->sibling = nullptr;
-		t->nodekind = ExpK;
-		t->kind.exp = kind;
+		t->nodekind = kind;
+		t->attri = token;
 		t->type = Void;
 	}
 	return t;
 }
 
+shared_ptr<TreeNode>  newVarNode(NodeKind kind) {
+	shared_ptr<TreeNode> t = make_shared<TreeNode>();
+	int i;
+	if (t == nullptr)
+		cerr << "Out of memory error here!" << endl;
+	else {
+		for (i = 0; i < MAXCHILDREN; i++)
+			t->child[i] = nullptr;
+		t->sibling = nullptr;
+		t->nodekind = VarK;
+		t->type = Void;
+	}
+	return t;
+}
 /* printSpaces indents by printing spaces */
 void printSpaces(ostream& out){ 
 	int i;
@@ -110,23 +132,41 @@ void printSpaces(ostream& out){
 /* procedure printTree prints a syntax tree to the 
  * listing file using indentation to indicate subtrees
  */
+#if 0
 void printTree( shared_ptr<TreeNode> tree,ostream& out){ 
 	int i;
 	INDENT;
 	while (tree != nullptr) {
 		//out << "line" << setw(4) << tree->attri.lineno << ends;
 		printSpaces(out);
-		if (tree->nodekind == StmtK){
+		if (tree->nodekind == FuncK) {
+			out << "Function declaration: "
+				<<
+				<< " " << pNode->name << endl;
+		}
+		else if (tree->nodekind == VarK) {
+			out << "Variable declaration: "
+				<< scan->key_word[(int)pNode->type].str
+				<< " " << pNode->name;
+			if (pNode->bArr) out << "[" << pNode->iArrSize << "] ";
+			out << endl;
+			break;
+		}
+		else if (tree->nodekind == ParamK) {
+			out << "parameter: "
+				<< tree->attri.tokenString
+				<< " " << pNode->name;
+			if (pNode->bArr) out << "[]";
+			out << endl;
+			break;
+		}
+		else if (tree->nodekind == StmtK){
 			switch (tree->kind.stmt) {
 			case IfK:
 				out << "If" << endl;
 				break;
-			case RepeatK:
-				out << "Repeat" << endl;
-				break;
-			case AssignK:
-				out << "Assign to: " << tree->attri.tokenString << endl;
-				break;
+			case WhileK:
+				out<<
 			case ReadK:
 				out << "Read: " << tree->attri.tokenString << endl;
 				break;
@@ -163,7 +203,7 @@ void printTree( shared_ptr<TreeNode> tree,ostream& out){
 	}
 	UNINDENT;
 }
-
+#endif
 
 #if 0
 Attribute::Attribute(int i) {

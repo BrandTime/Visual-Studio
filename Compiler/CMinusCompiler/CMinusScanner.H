@@ -9,6 +9,16 @@
 #define _SCAN_H_
 #include"GLOBALS.H"
 #include"UTIL.H"
+/* states in scanner DFA */
+typedef enum {
+	START, DONE,
+	INCOMMENT, INNUM, INID,
+	INLESS,INGREAT,INASSIGN,INNEQ,
+	INCHAR, INSTRING, SCOMMENT, MCOMMENT,
+	//SCOMMENT:single line comment, MCOMMENT: multiple lines comments
+	_ERROR
+}
+StateType;
 
 class CMinusScanner {
 private:

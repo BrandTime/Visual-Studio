@@ -10,7 +10,7 @@
 //set NO_SCAN to TRUE to get a simple test program
 #define NO_SCAN false
 /* set NO_PARSE to TRUE to get a scanner-only compiler */
-#define NO_PARSE true
+#define NO_PARSE false
 /* set NO_ANALYZE to TRUE to get a parser-only compiler
 can choose only one parser*/
 #define NO_ANALYZE true
@@ -44,7 +44,6 @@ bool TraceScan = true;
 bool TraceParse = true;
 bool TraceAnalyze = false;
 bool TraceCode = false;
-
 bool Error = false;
 
 int main(){ 
@@ -66,7 +65,7 @@ int main(){
 	CMinusScanner::scan(source);
 	CMinusScanner::print(tokens);
 #if !NO_PARSE
-	syntaxTree = Parser::parse();
+	syntaxTree = CMinusParser::parse();
 	if (TraceParse) {
 		listing << endl << "Syntax tree: " << endl;
 		printTree(syntaxTree, listing);

@@ -35,6 +35,7 @@
     <ClCompile Include="CMinusScanner.cpp" />
     <ClCompile Include="CODE.cpp" />
     <ClCompile Include="MAIN.cpp" />
+    <ClCompile Include="reference.cpp" />
     <ClCompile Include="SYMTAB.cpp" />
     <ClCompile Include="UTIL.cpp" />
   </ItemGroup>
@@ -97,6 +98,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <CompileAs>CompileAsCpp</CompileAs>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

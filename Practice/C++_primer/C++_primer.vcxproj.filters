@@ -33,7 +33,7 @@
     <ClInclude Include="MessageAndFolder.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StrVec.h">
+    <ClInclude Include="StrVec.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

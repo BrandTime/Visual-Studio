@@ -1,4 +1,4 @@
-﻿#include"HasPtr.hpp"
+﻿#include"Header.h"
 
 class Employee {
 	string name;
@@ -23,10 +23,29 @@ public:
 };
 size_t Employee::count = 0;
 
-int main() {
-	HasPtr has("temp");
-	has = has;
+class Foo {
+public:
+	Foo(initializer_list<int> a) {
+		for (auto i : a)
+			data.push_back(i);
+	}
+	Foo sorted() && {
+		sort(data.begin(),data.end());
+		return *this;
+	};
+	Foo sorted()const & {
+		return Foo(*this).sorted();
+	};
+private:
+	vector<int> data;
+};
 
+
+int main() {
+	vector<int> s;
+	s.reserve(10);
+	s[1] = 3;
+	
 	system("pause");
 	return 0;
 }

@@ -63,6 +63,9 @@ struct TreeNode {
 	} kind;
 	Token attri;
 	ExpType type; /* for type checking of exps */
+	enum Scope {
+		GLOBAL,LOCAL
+	}scope;
 };
 
 
@@ -81,12 +84,12 @@ shared_ptr<TreeNode> newStmtNode(StmtKind);
 /* Function newExpNode creates a new expression
  * node for syntax tree construction
  */
-shared_ptr<TreeNode>  newExpNode(ExpKind);
+shared_ptr<TreeNode>  newNode(ExpKind);
 
-/* Function copyString allocates and makes a new
- * copy of an existing string
+/* Function newExpNode creates a new variable
+ * node for syntax tree construction
  */
-
+shared_ptr<TreeNode>  newTreeNode(NodeKind,Token);
  /* procedure printTree prints a syntax tree to the
   * listing file using indentation to indicate subtrees
   */

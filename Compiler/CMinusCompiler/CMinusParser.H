@@ -19,17 +19,30 @@ class CMinusParser:public CMinusScanner {
 	//auxiliary function
 	static Token getToken();
 	/* function prototypes for recursive calls */
-	static shared_ptr<TreeNode> stmt_sequence(void);
-	static shared_ptr<TreeNode> statement(void);
-	static shared_ptr<TreeNode> if_stmt(void);
-	static shared_ptr<TreeNode> repeat_stmt(void);
-	static shared_ptr<TreeNode> assign_stmt(void);
-	static shared_ptr<TreeNode> read_stmt(void);
-	static shared_ptr<TreeNode> write_stmt(void);
-	static shared_ptr<TreeNode> exp(void);
-	static shared_ptr<TreeNode> simple_exp(void);
-	static shared_ptr<TreeNode> term(void);
-	static shared_ptr<TreeNode> factor(void);
+	static shared_ptr<TreeNode> program();
+	static shared_ptr<TreeNode> declaration_list();
+	static shared_ptr<TreeNode> declaration();
+	static shared_ptr<TreeNode> var_declaration();
+	static shared_ptr<TreeNode> fun_declaration();
+	static shared_ptr<TreeNode> params();		
+	static shared_ptr<TreeNode> compound_stmt();
+	static shared_ptr<TreeNode> local_declarations();
+	static shared_ptr<TreeNode> read_stmt();		
+	static shared_ptr<TreeNode> write_stmt();		
+	static shared_ptr<TreeNode> expression_stmt();
+	static shared_ptr<TreeNode> subcompound_stmt();
+	static shared_ptr<TreeNode> if_stmt();
+	static shared_ptr<TreeNode> while_stmt();
+	static shared_ptr<TreeNode> return_stmt();
+	static shared_ptr<TreeNode> expression();
+	static shared_ptr<TreeNode> simple_expression();
+	static shared_ptr<TreeNode> additive_expression();
+	static shared_ptr<TreeNode> term();
+	static shared_ptr<TreeNode> factor();
+	static shared_ptr<TreeNode> var();
+	static shared_ptr<TreeNode> call();
+	static shared_ptr<TreeNode> args();
+
 	static void match(TokenType expected);
 protected://for further compile
 
