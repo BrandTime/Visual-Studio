@@ -1,4 +1,4 @@
-#if 0
+ï»¿#if 0
 #include "WaveTransform.h"
 
 
@@ -18,21 +18,21 @@ Mat WaveTransform::WDT(const Mat &_src, const string _wname, const int _level)
 	Mat dst = Mat::zeros(src.rows, src.cols, src.type());
 	int row = src.rows;
 	int col = src.cols;
-	//¸ßÍ¨µÍÍ¨ÂË²¨Æ÷
+	//é«˜é€šä½é€šæ»¤æ³¢å™¨
 	Mat lowFilter;
 	Mat highFilter;
 	wavelet_D(_wname, lowFilter, highFilter);
-	//Ğ¡²¨±ä»»
+	//å°æ³¢å˜æ¢
 	int t = 1;
 
 
 	while (t <= _level)
 	{
-		//ÏÈ½øĞĞ ĞĞĞ¡²¨±ä»»
+		//å…ˆè¿›è¡Œ è¡Œå°æ³¢å˜æ¢
 //#pragma omp parallel for
 		for (int i = 0; i < row; i++)
 		{
-			//È¡³ösrcÖĞÒª´¦ÀíµÄÊı¾İµÄÒ»ĞĞ
+			//å–å‡ºsrcä¸­è¦å¤„ç†çš„æ•°æ®çš„ä¸€è¡Œ
 			Mat oneRow = Mat::zeros(1, col, src.type());
 
 			for (int j = 0; j < col; j++)
@@ -53,7 +53,7 @@ Mat WaveTransform::WDT(const Mat &_src, const string _wname, const int _level)
 		cvSaveImage("dst1.jpg", &dstImg1);
 #endif
 
-		//Ğ¡²¨ÁĞ±ä»»
+		//å°æ³¢åˆ—å˜æ¢
 //#pragma omp parallel for
 		for (int j = 0; j < col; j++)
 		{
@@ -81,7 +81,7 @@ Mat WaveTransform::WDT(const Mat &_src, const string _wname, const int _level)
 		imshow(s,Mat_<uchar>(dst));
 		waitKey(1);
 		*/
-		//¹é»¯¸÷×ÓÍ¼·¶Î§0~255
+		//å½’åŒ–å„å­å›¾èŒƒå›´0~255
 		/*
 		int r_len=row/2,c_len=col/2;
 		for(int i=0;i<2;i++)
@@ -100,7 +100,7 @@ Mat WaveTransform::WDT(const Mat &_src, const string _wname, const int _level)
 		*/
 
 		//
-		//¸üĞÂ 
+		//æ›´æ–° 
 		row /= 2;
 		col /= 2;
 		t++;
@@ -118,12 +118,12 @@ Mat WaveTransform::IWDT(const Mat &_src, const string _wname, const int _level)
 	int N = src.rows;
 	int D = src.cols;
 
-	//¸ßµÍÍ¨ÂË²¨Æ÷
+	//é«˜ä½é€šæ»¤æ³¢å™¨
 	Mat lowFilter;
 	Mat highFilter;
 	wavelet_R(_wname, lowFilter, highFilter);
 
-	//Ğ¡²¨±ä»»
+	//å°æ³¢å˜æ¢
 	int t = 1;
 	int row = N / std::pow(2., _level - 1);
 	int col = D / std::pow(2., _level - 1);
@@ -131,7 +131,7 @@ Mat WaveTransform::IWDT(const Mat &_src, const string _wname, const int _level)
 	while (row <= N && col <= D)
 		//while(t<=_level)
 	{
-		//ÁĞÄæ±ä»»
+		//åˆ—é€†å˜æ¢
 		for (int j = 0; j < col; j++)
 		{
 			Mat oneCol = Mat::zeros(row, 1, src.type());
@@ -153,7 +153,7 @@ Mat WaveTransform::IWDT(const Mat &_src, const string _wname, const int _level)
 		cvSaveImage("dst.jpg", &dstImg2);
 #endif
 
-		//ĞĞÄæ±ä»»
+		//è¡Œé€†å˜æ¢
 		for (int i = 0; i < row; i++)
 		{
 			Mat oneRow = Mat::zeros(1, col, src.type());
@@ -270,15 +270,15 @@ Mat WaveTransform::waveletDecompose(const Mat &_src, const Mat &_lowFilter, cons
 	const Mat &lowFilter = Mat_<float>(_lowFilter);
 	const Mat &highFilter = Mat_<float>(_highFilter);
 
-	//ÆµÓòÂË²¨»òÊ±Óò¾í»ı£»ifft( fft(x) * fft(filter)) = cov(x,filter) 
+	//é¢‘åŸŸæ»¤æ³¢æˆ–æ—¶åŸŸå·ç§¯ï¼›ifft( fft(x) * fft(filter)) = cov(x,filter) 
 	Mat dst1 = Mat::zeros(1, D, src.type());
 	Mat dst2 = Mat::zeros(1, D, src.type());
 
 	filter2D(src, dst1, -1, lowFilter);
 	filter2D(src, dst2, -1, highFilter);
 
-	//ÏÂ²ÉÑù
-	//Êı¾İÆ´½Ó
+	//ä¸‹é‡‡æ ·
+	//æ•°æ®æ‹¼æ¥
 	for (int i = 0, j = 1; i < D / 2; i++, j += 2)
 	{
 		src.at<float>(0, i) = dst1.at<float>(0, j);//lowFilter
@@ -300,34 +300,34 @@ Mat WaveTransform::waveletReconstruct(const Mat &_src, const Mat &_lowFilter, co
 	const Mat &highFilter = Mat_<float>(_highFilter);
 
 
-	/// ²åÖµ;
+	/// æ’å€¼;
 	Mat Up1 = Mat::zeros(1, D, src.type());
 	Mat Up2 = Mat::zeros(1, D, src.type());
 
 	//Mat roi1(src, Rect(0, 0, D / 2, 1));
 	//Mat roi2(src, Rect(D / 2, 0, D / 2, 1));
-	/// ²åÖµÎª0
+	/// æ’å€¼ä¸º0
 
 	for (int i = 0, cnt = 0; i < D / 2; i++, cnt += 2)
 	{
-		Up1.at<float>(0, cnt) = src.at<float>(0, i);     ///< Ç°Ò»°ë
-		Up2.at<float>(0, cnt) = src.at<float>(0, i + D / 2); ///< ºóÒ»°ë
+		Up1.at<float>(0, cnt) = src.at<float>(0, i);     ///< å‰ä¸€åŠ
+		Up2.at<float>(0, cnt) = src.at<float>(0, i + D / 2); ///< åä¸€åŠ
 	}
 	//std::cout<<Up1<<std::endl;
 
-	/// ÏßĞÔ²åÖµ
+	/// çº¿æ€§æ’å€¼
 
 	//resize(roi1, Up1, Up1.size(), 0, 0, INTER_CUBIC);
 	//resize(roi2, Up2, Up2.size(), 0, 0, INTER_CUBIC);
 
 
-	/// Ç°Ò»°ëµÍÍ¨£¬ºóÒ»°ë¸ßÍ¨
+	/// å‰ä¸€åŠä½é€šï¼Œåä¸€åŠé«˜é€š
 	Mat dst1 = Mat::zeros(1, D, src.type());
 	Mat dst2 = Mat::zeros(1, D, src.type());
 	filter2D(Up1, dst1, -1, lowFilter);
 	filter2D(Up2, dst2, -1, highFilter);
 
-	/// ½á¹ûÏà¼Ó
+	/// ç»“æœç›¸åŠ 
 	dst1 = dst1 + dst2;
 	return dst1;
 
@@ -340,7 +340,7 @@ int main()
 	const char*filename = "1.jpg";
 	Mat src = imread(filename);
 
-	int level = 3;//·Ö½â½×´Î
+	int level = 3;//åˆ†è§£é˜¶æ¬¡
 	double dishu = 2;
 	int result = (int)pow(dishu, level);
 

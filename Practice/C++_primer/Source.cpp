@@ -36,16 +36,17 @@ public:
 	Foo sorted()const & {
 		return Foo(*this).sorted();
 	};
+	
 private:
 	vector<int> data;
 };
 
+int main(){
+	int i;
+	double temp;
+	cin >> i>>temp;
+	cout << i << ends << temp << endl;
 
-int main() {
-	vector<int> s;
-	s.reserve(10);
-	s[1] = 3;
-	
 	system("pause");
 	return 0;
 }

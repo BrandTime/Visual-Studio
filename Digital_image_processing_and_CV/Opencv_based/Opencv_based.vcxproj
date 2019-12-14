@@ -115,8 +115,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="homework.cpp" />
     <ClCompile Include="mian.cpp" />
     <ClCompile Include="WavletTransformation.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="image_smooth.cpp" />
+    <ClInclude Include="video_player.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

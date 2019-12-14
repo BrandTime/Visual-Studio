@@ -41,7 +41,6 @@ public:
 
 
 
-
 string& StrVec::operator[](size_t s) {
 	if (s >= size)
 		throw out_of_range("suscript out of range");

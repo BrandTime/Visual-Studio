@@ -28,7 +28,7 @@ public:
 private:
 	friend class StrBlobPtr;
 	shared_ptr<vector<string>> data;
-	void check(size_type, const string&="") const;
+	void check(size_type, const string&) const;
 };
 
 class StrBlobPtr {
